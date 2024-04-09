@@ -3,7 +3,7 @@ def app(data):
     j=1
     zeros=""
     while(1):
-        if(length<8*j):
+        if(length<=8*j):
             zeros+=(8*j-length)*"0"
             zeros+=data
             break
