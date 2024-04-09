@@ -7,32 +7,10 @@
 </head>
 <body>
     <form action="" method="POST" onsubmit="return validateForm()">
-        <label for="name">Name:</label>
+        <label for="name">userName:</label>
         <input type="text" id="name" name="name">
-        <label for="password">Password</label>
-        <input type="" id="password" name="password">
         <input name="Submit" type="submit" value="Submit">
     </form>
-    <script>
-        function validateForm() {
-            var name = document.getElementById("name").value;
-            var password = document.getElementById("password").value;
-            var nameRegex = /^[a-zA-Z\s]+$/;
-            var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{10,}$/;
-            if (!nameRegex.test(name)) {
-                document.getElementById("name").style.borderColor = "red"; // Corrected method name
-                alert("Name should contain only letters and spaces");
-                return false;
-            }
-
-            if (!passwordRegex.test(password)) {
-                document.getElementById("password").style.borderColor = "red"; // Corrected method name
-                return false;
-            }
-
-            return true;
-        }
-    </script>
     <?php
     $hostname = 'localhost';
     $username = 'root';
@@ -48,17 +26,17 @@
                 die("Connection failed: " . $mysqli->connect_error);
             }
 
-            $username = $mysqli->real_escape_string($_POST['name']);
-            $password =$mysqli->real_escape_string( $_POST['password']);
-            
+            $username = $mysqli->real_escape_string($_POST['name']);            
+            $sql="SELECT passwords from another WHERE username='rahul' ";
+            $result=$mysqli->query($sql);
 
-            $sql = "INSERT INTO user_table VALUES ('$username', '$password')";
 
-            if ($mysqli->query($sql) === TRUE)
+            if ($row = $result->fetch_assoc())
             {
+                echo $row["passwords"];
                 $message = 'Submitted successfully!';
                 // Echo JavaScript code to display an alert
-                echo '<script>alert("'. $message .'");</script>';
+                echo '<script>alert("'.$message.'");</script>';
             } 
             else 
             {
