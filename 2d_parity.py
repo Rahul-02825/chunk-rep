@@ -54,18 +54,39 @@ def print_col_form(final_data):
     return s
     
 
+def twodim(data,parity):
+    col_data=add_col(data)
+    data.append(make_parity(col_data,parity))
+    final=make_parity(data,parity)
+    final_data=row_append(data,final)
+    s=""
+    for i in final_data:
+        s+=i
+    print("The final data printed in row form is:",s)
+    print("The final data printed in col form is:",print_col_form(final_data))
+    err=print_col_form(final_data)
+    return s,err
+    #main
 parity=input("Give the parity to be done:")
 n=int(input("Enter the number of data to be stored:"))
 data=[]
 for i in range(n):
     data1=[]
     data.append(app(input("Enter the data:")))
-col_data=add_col(data)
-data.append(make_parity(col_data,parity))
-final=make_parity(data,parity)
-final_data=row_append(data,final)
-s=""
-for i in final_data:
-    s+=i
-print("The final data printed in row form is:",s)
-print("The final data printed in col form is:",print_col_form(final_data))
+s1,err1=twodim(data,parity)
+
+#error
+parit=input("Give the parity to be done:")
+nm=int(input("Enter the number of data to be stored:"))
+datas=[]
+for i in range(n):
+    data1s=[]
+    datas.append(app(input("Enter the error data:")))
+s,err=twodim(datas,parity)
+
+if(s1==s and err==err1):
+    print("No error occured")
+else:
+    print("A error has occured")
+
+
