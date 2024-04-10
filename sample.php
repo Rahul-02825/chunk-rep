@@ -8,15 +8,21 @@
 <body>
     <form action="" method="POST" onsubmit="return validateForm()">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name"><br>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password"><br>
         <label for="gender">Gender:</label>
         <select id="gender" name="gender">
             <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
         </select>
+        <br>
+        <input type="radio" id="radioMale" name="radioGender" value="male">
+        <label for="radioMale">Male</label>
+        <input type="radio" id="radioFemale" name="radioGender" value="female">
+        <label for="radioFemale">Female</label>
+        <br>
         <input type="checkbox" id="agree" name="agree">
         <label for="agree">I agree to the terms and conditions</label>
         <br>
@@ -27,6 +33,7 @@
             var name = document.getElementById("name").value;
             var password = document.getElementById("password").value;
             var gender = document.getElementById("gender").value;
+            var radioGender = document.querySelector('input[name="radioGender"]:checked');
             var agree = document.getElementById("agree").checked;
             var nameRegex = /^[a-zA-Z\s]+$/;
             var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{10,}$/;
@@ -45,6 +52,11 @@
             }
 
             if (gender === "") {
+                alert("Please select your gender");
+                isValid = false;
+            }
+
+            if (!radioGender) {
                 alert("Please select your gender");
                 isValid = false;
             }
@@ -78,8 +90,9 @@
             $username = $mysqli->real_escape_string($_POST['name']);
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $gender = $mysqli->real_escape_string($_POST['gender']);
+            $radioGender = $mysqli->real_escape_string($_POST['radioGender']);
 
-            $sql = "INSERT INTO another (username, passwords, gender) VALUES ('$username', '$password', '$gender')";
+            $sql = "INSERT INTO another (username, passwords, gender, role) VALUES ('$username', '$password', '$gender', '$radioGender')";
 
             if ($mysqli->query($sql) === TRUE) {
                 $message = 'Submitted successfully!';

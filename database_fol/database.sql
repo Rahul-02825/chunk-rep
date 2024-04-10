@@ -6,5 +6,6 @@ create table user_table(
 create table another(
     username varchar(20),
     passwords varchar(30),
-    gender varchar(30)
+    gender varchar(30),
+    role varchar(20)
 );
