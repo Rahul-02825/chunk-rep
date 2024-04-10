@@ -35,7 +35,9 @@
             var gender = document.getElementById("gender").value;
             var radioGender = document.querySelector('input[name="radioGender"]:checked');
             var agree = document.getElementById("agree").checked;
-            var nameRegex = /^[a-zA-Z\s]+$/;
+            //var emailRegex = /^[A-Z0-9a-z_\.]{2,}@[a-zA-z]{5,}\.[a-zA-z]{3,}$/;
+            //var numberRegex = /^[0-9]{10}$/;
+            var nameRegex = /^[A-Za-z0-9]{3,8}$/;
             var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{10,}$/;
             var isValid = true;
 
@@ -88,7 +90,7 @@
 
             // Sanitize user inputs to prevent SQL injection
             $username = $mysqli->real_escape_string($_POST['name']);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = $mysqli->real_escape_string($_POST['password']);
             $gender = $mysqli->real_escape_string($_POST['gender']);
             $radioGender = $mysqli->real_escape_string($_POST['radioGender']);
 
